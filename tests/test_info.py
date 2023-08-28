@@ -12,7 +12,7 @@ class WeaponTests(unittest.TestCase):
         self.assertFalse(CognisFlamer().type == ArcClaw().type)
 
     def test_special_rules(self):
-        self.assertTrue(self, TorsionCannon.abilities == "")
+        self.assertTrue(TorsionCannon().abilities == "---")
 
 
 class KataphronTests(unittest.TestCase):

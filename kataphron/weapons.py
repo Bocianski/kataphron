@@ -89,7 +89,7 @@ class HeavyArcRifle(RangeWeapon):
 
 class TorsionCannon(RangeWeapon):
     def __init__(self):
-        super().__init__("")
+        super().__init__("---")
         self.name = "Torsion cannon"
         self.range = 48
         self.type = "Heavy 1"
@@ -117,7 +117,7 @@ class ArcClaw(MeleeWeapon):
 
 class HydraulicClaw(MeleeWeapon):
     def __init__(self):
-        super().__init__("")
+        super().__init__("---")
         self.name = "Hydraulic claw"
         self.S = "x2"
         self.AP = -2
