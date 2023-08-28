@@ -4,23 +4,28 @@ class Servitor:
 
 
 class Kataphron(Servitor):
-    stats = {['M', 6], ['WS', 4], ['BS', 4], ['S', 5], ['T', 5], ['W', 3], ['A', 3], ['Ld', 7], ['Sv', None]}
+    stats = {"M": 6, "WS": 4, "BS": 4, "S": 5, "T": 5, "W": 3, "A": 3, "Ld": 7, }
+    weapon = []
 
-    # def keywords():
-    #     list
     def __init__(self, exact_type):
-        super().__init__('Kataphron ' + exact_type)
+        super(Kataphron, self).__init__('Kataphron ' + exact_type)
 
 
 class Destroyer(Kataphron):
-    def __init__(self):
-        super().__init__('Destroyer')
+    def __init__(self, weapon1, weapon2):
+        # if 0
+        super(Destroyer, self).__init__('Destroyer')
+        self.stats["Sv"] = 3
+        self.weapon = [weapon1, weapon2]
+        print(weapon1, weapon2)
 
-    # Name, Range, Type, S, AP, D
-    ranged_weapons = dict(Name=["Cognis flamer", "Heavy grav-cannon", "Kataphron plasma culverin - Standard",
-                                "Kataphron plasma culverin - Supercharge", "Phosphor blaster"],
-                          Range=[12, 30, 36, 36, 24],
-                          Type=["Assault D6+2", "Heavy 5", "Heavy D6", "Heavy D6", "Rapid Fire 1"],
-                          S=[4, 5, 7, 8, 5],
-                          AP=[0, -3, -3, -3, -1],
-                          D=[1, 1, 1, 2, 1])
+
+class Breacher(Kataphron):
+    def __init__(self, ranged, melee):
+        # if ranged != 5 or ranged != 6:
+        #     ranged = 5
+        # if melee != 0 or melee != 1:
+        #     melee = 0
+        super(Breacher, self).__init__('Breacher')
+        self.stats["Sv"] = 2
+        self.weapon = {ranged, melee}
