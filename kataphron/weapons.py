@@ -7,6 +7,10 @@ class Weapon:
     D = None
     abilities = None
 
+    def __str__(self):
+        #return self.name + " | " + str(self.range) + " | " + self.type + " | " + str(self.S) + " | " + str(self.AP) + " | " + str(self.D) + " | " + self.abilities
+        return f'{self.name} | {self.range} | {self.type} | {self.S} | {self.AP} | {self.D} | {self.abilities}'
+
 
 class RangeWeapon(Weapon):
 
@@ -97,7 +101,7 @@ class TorsionCannon(RangeWeapon):
 class MeleeWeapon(Weapon):
     def __init__(self, abilities):
         self.abilities = abilities
-        self.range = "Melee"
+        self.range = 0
         self.type = "Melee"
 
 

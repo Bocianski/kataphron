@@ -9,10 +9,10 @@ class WeaponTests(unittest.TestCase):
         self.assertTrue(Weapon is not None)
 
     def test_different_types(self):
-        self.assertFalse(self, CognisFlamer.type == ArcClaw.type)
+        self.assertFalse(CognisFlamer().type == ArcClaw().type)
 
     def test_special_rules(self):
-        self.assertTrue(self, TorsionCannon.abilities == "")
+        self.assertTrue(TorsionCannon.abilities == "")
 
 
 class KataphronTests(unittest.TestCase):
@@ -28,4 +28,4 @@ class DestroyerTests(unittest.TestCase):
         self.assertTrue(len(Destroyer(PlasmaCulverin, CognisFlamer).stats) == 9)
 
     def test_destroyer_one_stat(self):
-        self.assertEquals(Destroyer(PlasmaCulverin, CognisFlamer).stats.get(self, "W"), Breacher(HeavyArcRifle, ArcClaw).stats.get(self, "W"))
+        self.assertEqual(Destroyer(PlasmaCulverin, CognisFlamer).stats.get(self, "W"), Breacher(HeavyArcRifle, ArcClaw).stats.get(self, "W"))
