@@ -1,4 +1,4 @@
-from kataphron.info import Destroyer, Breacher
+from kataphron.kataphrons import Destroyer, Breacher
 from kataphron.weapons import CognisFlamer, HeavyGravCanon, PlasmaCulverin, PlasmaCulverinSupercharged, PhosphorBlaster, HeavyArcRifle, TorsionCannon, ArcClaw, HydraulicClaw
 
 if __name__ == '__main__':
