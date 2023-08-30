@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 VERSION = '0.0.2'
 DESCRIPTION = 'Kataphron Python package'
-LONG_DESCRIPTION = 'My first Python package about Cult Mechanicum'
+LONG_DESCRIPTION = 'My first Python package about Cult Mechanicum.\nWIP: working on very simple battlefield simulation'
 
 # Setting up
 setup(

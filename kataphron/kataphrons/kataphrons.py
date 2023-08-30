@@ -11,9 +11,15 @@ class Destroyer(Kataphron):
         self.stats["Sv"] = 3
         self.weapon = [weapon1, weapon2]  # FIXME: is it list or a set?
 
+    def __str__(self):
+        return 'Destroyer: ' + self.weapon[0].name + ', ' + self.weapon[1].name
+
 
 class Breacher(Kataphron):
     def __init__(self, ranged: RangeWeapon, melee: MeleeWeapon):
         super(Breacher, self).__init__('Breacher')
         self.stats["Sv"] = 2
         self.weapon = {ranged, melee}  # FIXME: is it list or a set?
+
+    def __str__(self):
+        return 'Breacher: ' + list(self.weapon)[0].name + ', ' + list(self.weapon)[1].name

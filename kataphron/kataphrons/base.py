@@ -12,6 +12,7 @@ class Kataphron(Servitor):
                      "T": 5, "W": 3, "A": 3, "Ld": 7, }
     stats = {}
     weapon = []  # FIXME: is it list or a set?
+    weapon_shot = []
 
     def __init__(self, exact_type: str):
         self.stats = {**self.default_stats}
