@@ -3,6 +3,7 @@ from kataphron.kataphrons import Kataphron, Breacher, Destroyer
 from kataphron.weapons.melee import *
 from kataphron.weapons.ranged import *
 
+
 class KataphronTests(unittest.TestCase):
     def test_ok(self):
         kataphron = Kataphron("test")
@@ -13,7 +14,7 @@ class KataphronTests(unittest.TestCase):
     def test_breacher(self):
         ranged_weapon = HeavyArcRifle()
         melee_weapon = ArcClaw()
-        bracher = Breacher(ranged_weapon, melee_weapon)
+        bracher: Breacher = Breacher(ranged_weapon, melee_weapon)
 
         self.assertEqual(len(bracher.stats), 9)
         self.assertCountEqual(bracher.weapon, [ranged_weapon, melee_weapon])

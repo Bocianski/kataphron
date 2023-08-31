@@ -1,16 +1,17 @@
 """
-2 models stand next to themselfs and take turns making all through all battle phases. Distnace between them will be set in constructor. First turn takes who wins rollof
+2 models stand next to themselves and take turns making all through all battle phases. Distance between them will be set in constructor. First turn takes who wins roll-of
 """
 
 import random
+
 
 class Battlefield:
     pass
 
 
 class Round:
-    #phases:    1 - command    2 - movement     3 - shooting    4 - charge  5 - fight   6 - morale
-    phasecouter = 1
+    # phases:    1 - command    2 - movement     3 - shooting    4 - charge  5 - fight   6 - morale
+    phase_counter = 1
     initiative = None
 
 

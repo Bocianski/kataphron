@@ -4,28 +4,6 @@ from kataphron.kataphrons import *
 from kataphron.weapons import *
 
 if __name__ == '__main__':
-    # ranged_weapon_list = list([CognisFlamer, HeavyGravCanon, PlasmaCulverin, PlasmaCulverinSupercharged, PhosphorBlaster, HeavyArcRifle, TorsionCannon])
-    # melee_weapon_list = list([ArcClaw, HydraulicClaw])
-    # Destroyer(ranged_weapon_list[0], ranged_weapon_list[3])
-    # Breacher(ranged_weapon_list[1], melee_weapon_list[0]).__str__()
-    #
-    # bron = TorsionCannon()
-    # print(bron.__str__())
-    # print(bron.range)
-    #
-    # print(CognisFlamer().type + '  |  ' + ArcClaw().type)
-    #
-    # print(dice_roll(4))
-    #
-    # unit11 = Destroyer(CognisFlamer(), HeavyGravCanon())
-    # unit21 = Destroyer(PlasmaCulverinSupercharged(), PhosphorBlaster())
-    # force1 = Player('Szymon')
-    # force1.add_to_army(unit11)
-    # force2 = Player("Piort")
-    # force2.add_to_army(unit21)
-    #
-    # game = Game(force1, force2, Range(unit11, unit21, 30))
-    #
     # data = {7058, 7059, 7072, 7074, 7076}
     # print(data)
     #
@@ -44,7 +22,11 @@ if __name__ == '__main__':
     player_piotr.add_to_army(Breacher(HeavyGravCanon(), ArcClaw()))
     player_piotr.add_to_army(Breacher(TorsionCannon(), HydraulicClaw()))
 
+    # print(game1.pl)
+
     game1 = Game(player_piotr, player_szymon)
-    game1.rollof()
-    game1.ask_for_ranges()
+    game1.roll_of()
+    game1.give_ranges([4, 5])
+    print(game1.players[2])
+    # game1.ask_for_ranges()
     game1.play_game()
