@@ -44,8 +44,6 @@ if __name__ == '__main__':
     player_piotr.add_to_army(Breacher(HeavyGravCanon(), ArcClaw()))
     player_piotr.add_to_army(Breacher(TorsionCannon(), HydraulicClaw()))
 
-    #print(destroyer.stats.get("M"))
-
     game1 = Game(player_piotr, player_szymon)
     game1.rollof()
     game1.ask_for_ranges()

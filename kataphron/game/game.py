@@ -1,6 +1,6 @@
 from kataphron.combat.combat import dice_roll
 from kataphron.game.range import Range
-from kataphron.players.players import Player
+
 
 class Game:
     players_in_order = []
@@ -18,7 +18,8 @@ class Game:
     def ask_for_ranges(self):
         for Army1Unit in self.players_in_order[0].army_list:
             for Army2Unit in self.players_in_order[1].army_list:
-                self.ranges.append(Range(Army1Unit, Army2Unit, input(f"Odleglosc miedzy {Army1Unit} and {Army2Unit}: ")))
+                self.ranges.append(
+                    Range(Army1Unit, Army2Unit, input(f"Odleglosc miedzy {Army1Unit} and {Army2Unit}: ")))
 
     def rollof(self):
         army1 = self.players[0]
@@ -34,46 +35,28 @@ class Game:
             self.players_in_order.append(army2)
             self.players_in_order.append(army1)
 
-
     def command_phase(self, active_player):
         self.movement_phase(active_player)
 
     def movement_phase(self, active_player):
         active_unit = self.get_active_unit(active_player)
-        if active_unit == None:
+        if active_unit is None:
             input('Brak jednostek do poruszenia. Nacisnij ENTER by kontynuowac do Shooting phase')
             self.activate_units()
             self.shooting_phase(active_player)
-        choice = int(input("\nCo chcesz zrobic?\n1 - oddalic sie od przeciwnika.\n2 - zblizyc sie do przeciwnika.\n3 - stac w miejscu\n"))
-        if choice == 1:
-            for range in self.ranges:
-                if active_unit == range.army1_unit or active_unit == range.army2_unit:
-                    range.range_between += active_unit.stats.get("M")
-        elif choice == 2:
-            for range in self.ranges:
-                if active_unit == range.army1_unit or active_unit == range.army2_unit:
-                    range.range_between = range.range_between - active_unit.stats.get("M")
-        elif choice == 3:
-            print('Wybrales pozostac nieruchomym')
-        else:
-            print('Chyba cos zle napinales ;)\n')
-            self.movement_phase_with_unit(active_player, active_unit)
-        self.units_activated.append(self.units_ready.pop(self.units_ready.index(active_unit)))
-        self.movement_phase(active_player)
+        self.movement_phase_with_unit(active_player, active_unit)
 
     def movement_phase_with_unit(self, active_player, active_unit):
-        if active_unit == None:
-            input('Brak jednostek do poruszenia. Nacisnij ENTER by kontynuowac do Shooting phase')
-            self.shooting_phase(active_player)
-        choice = int(input("\nCo chcesz zrobic?\n1 - oddalic sie od przeciwnika.\n2 - zblizyc sie do przeciwnika.\n3 - stac w miejscu\n"))
+        choice = int(input(
+            "\nCo chcesz zrobic?\n1 - oddalic sie od przeciwnika.\n2 - zblizyc sie do przeciwnika.\n3 - stac w miejscu\n"))
         if choice == 1:
-            for range in self.ranges:
-                if active_unit == range.army1_unit or active_unit == range.army2_unit:
-                    range.range_between += active_unit.stats.get("M")
+            for movement in self.ranges:
+                if active_unit == movement.army1_unit or active_unit == movement.army2_unit:
+                    movement.range_between += active_unit.stats.get("M")
         elif choice == 2:
-            for range in self.ranges:
-                if active_unit == range.army1_unit or active_unit == range.army2_unit:
-                    range.range_between -= active_unit.stats.get("M")
+            for movement in self.ranges:
+                if active_unit == movement.army1_unit or active_unit == movement.army2_unit:
+                    movement.range_between -= active_unit.stats.get("M")
         elif choice == 3:
             print('Wybrales pozostac nieruchomym')
         else:
@@ -84,19 +67,56 @@ class Game:
 
     def shooting_phase(self, active_player):
         active_unit = self.get_active_unit(active_player)
-        if active_unit == None:
+        if active_unit is None:
             input('Brak jednostek do oddania srzalu. Nacisnij ENTER by kontynuowac do Charge phase')
-            self.charhe_phase(active_player)
-        #choice = int(input()
+            self.charge_phase_with_unit(active_player, active_unit)
+        # choice = int(input()
         print("Mozliwe cele:\n")
 
         print("\nW jaki cel chcesz oddac strzal?\n")
 
+    def charge_phase(self, active_player):
+        active_unit = self.get_active_unit(active_player)
+        if active_unit is None:
+            input('Wybrano czynnosc dla kazdej jednostki. Nacisnij ENTER by kontynuowac do Fight phase')
+            self.activate_units()
+            self.fight_phase(active_player)
+        self.charge_phase_with_unit(active_player, active_unit)
 
-    def charge_phase(self):
-        pass
+    def charge_phase_with_unit(self, active_player, active_unit):
+        target_list = []
+        range_list = []
+        tmp = 1
+        while True:
+            choice = int(input("Co chcesz zrobic?\n1 - zaszarzowac\n2 - stac w miejscu"))
+            if choice == 2:
+                self.units_activated.append(self.units_ready.pop(self.units_ready.index(active_unit)))
+                self.charge_phase(active_player)
+            elif choice == 1:
+                for possible_targets in self.ranges:
+                    if possible_targets.army1_unit == active_unit and possible_targets.range_between <= 12:
+                        print(f"{tmp}. {possible_targets.army2_unit} jest w  {possible_targets.range_between}")
+                        target_list.append(possible_targets.army2_unit)
+                    elif possible_targets.army2_unit == active_unit and possible_targets.possible_targets_between <= 12:
+                        print(
+                            f"{tmp}. {possible_targets.army1_unit} jest w  {possible_targets.possible_targets_between}")
+                        target_list.append(possible_targets.army1_unit)
+                    range_list.append(possible_targets)
+                    tmp += 1
+                choice = input("Do kogo szarrzujesz?")
+                target = range_list[int(choice) - 1]
+                roll = dice_roll(2)
+                if target.range_between <= roll:
+                    print("Szarza sie udala")
+                    target.range_between = 0
+                else:
+                    print("Szarza sie nie udala")
+                self.units_activated.append(self.units_ready.pop(self.units_ready.index(active_unit)))
+                self.charge_phase(active_player)
+            else:
+                print("Chyba cos zle wybrales ;)")
 
-    def fight_phase(self):
+    def fight_phase(self, active_player):
         pass
 
     def morale_phase(self):
@@ -132,7 +152,7 @@ class Game:
         while self.round < 5:
             n = self.turn % 2
             active_player = self.players_in_order[n]
-            print(f'\nZaczynamy runde {self.round+1}\nTura gracza: {active_player.player_name}')
+            print(f'\nZaczynamy runde {self.round + 1}\nTura gracza: {active_player.player_name}')
             self.command_phase(active_player)
             self.round += 1
             self.turn += 1
